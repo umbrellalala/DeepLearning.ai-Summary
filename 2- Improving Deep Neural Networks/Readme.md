@@ -531,6 +531,7 @@ Implications of L2-regularization on:
    `W = W - learning_rate * dW / (sqrt(sdW) + epsilon)`
 - With RMSprop you can increase your learning rate.
 - Developed by Geoffrey Hinton and firstly introduced on [Coursera.org](https://www.coursera.org/) course.
+- RMSprop是在AdaGrad基础上的改进：AdaGrad在设定了全局learning_rate后，针对每个需要优化的变量，将全局learning_rate除以该变量的梯度方根(sqrt(梯度平方和))，得到其对应的梯度。对于梯度平缓的变量，梯度方根较小，学习率会比较大，而梯度陡峭的变量学习率比较小。在参数空间更为平缓的方向，会取得更大的进步（因为平缓，所以历史梯度平方和较小，对应学习下降的幅度较小），并且能够使得陡峭的方向变得平缓，从而加快训练速度。但是AdaGrad有个缺点是，梯度平方和是累积的，随着训练轮次增加，梯度平方和严格递增，训练速率会越来越慢，这凸优化问题上没问题，但在非凸优化问题上会陷入非全局最优的极值点，无法跳出来。而RMSprop把梯度方根换成梯度指数加权平均值，它是不会递减的，所以不容易陷入非最优极值点。
 
 ### Adam optimization algorithm
 
